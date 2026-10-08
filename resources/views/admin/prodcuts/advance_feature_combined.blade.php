@@ -235,7 +235,7 @@
                                                 {{ $product->weight_type == 'grm' ? 'selected' : '' }}>GRM
                                             </option>
                                             <option value="kg"
-                                                {{ $product->weight_type == 'kg' ? 'selected' : '' }}>KG
+                                                {{ $product->weight_type == 'kg' ? 'selected' : '' }}>K
                                             </option>
                                         </select>
                                     </div>

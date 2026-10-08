@@ -1,13 +1,10 @@
 <?php
 $WEBSITE_URL				=	env("APP_URL");
 $FRONT_WEBSITE_URL = env('WEBSITE_URL');
-// $BASE_PATH = '/home/vasvijpr/public_html/public/';
-// $BASE_PATH =  'C:/xampp/htdocs/vasvi/public/';
-$BASE_PATH = '/home/furnishworldecom/public_html/public/';
+$BASE_PATH = '/home/suryavanshi/public_html/public/';
 if(!empty($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1')){
-	$BASE_PATH =  'C:/xampp/htdocs/s4kbylaxmi-frontend/public/';
+	$BASE_PATH =  'C:/xampp/htdocs/suryavanshi-frontend/public/';
 }
-
 
 return [
 	'FRONT_WEBSITE_URL' => $FRONT_WEBSITE_URL,
