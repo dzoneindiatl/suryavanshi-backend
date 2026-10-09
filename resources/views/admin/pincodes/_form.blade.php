@@ -85,7 +85,7 @@
                                             <option value="3" {{ (old('delivery_type') ?? $country->delivery ?? '') == 3 ? 'selected' : '' }}>Delivery with Extra Charge</option>
                                         </select>
                                     </div>
-                                    <div class="col-xl-4" id="add_delivery_ect" {{ $country->delivery !== 3 ? 'style=display:none;' : ''}}>
+                                    <div class="col-xl-4" id="add_delivery_ect" @if(isset($country)){{ $country->delivery !== 3 ? 'style=display:none;' : ''}} @endif>
                                         <label for="extra_delivery_charge">Extra Delivery Charge</label>
                                         <input type="number" value="{{ isset($country->extra_delivery_charge) ? $country->extra_delivery_charge : '' }}" step="0.0001" class="form-control"id="extra_delivery_charge" name="delivery_sets[0][extra_delivery_charge]" placeholder="Extra Delivery Charge">
                                      </div>
@@ -123,7 +123,7 @@
         $countryId.change(function () {
             let countryIdValue = $(this).val();
             if (countryIdValue) {
-                $.get(`/admin/get-states/${countryIdValue}`, function (states) {
+                $.get(`/get-states/${countryIdValue}`, function (states) {
                     $stateId.html('<option value="">Select State</option>');
                     $cityId.html('<option value="">Select City</option>');
                     $.each(states, function (index, state) {
@@ -138,7 +138,7 @@
         $stateId.change(function () {
             const stateIdValue = $(this).val();
             if (stateIdValue) {
-                $.get(`/admin/get-cities/${stateIdValue}`, function (cities) {
+                $.get(`/get-cities/${stateIdValue}`, function (cities) {
                     $cityId.html('<option value="">Select City</option>');
                     $.each(cities, function (index, city) {
                         $cityId.append(`<option value="${city.id}">${city.name}</option>`);

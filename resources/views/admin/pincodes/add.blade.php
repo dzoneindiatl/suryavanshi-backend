@@ -7,7 +7,7 @@
             <nav>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('admin-dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Create Couriers</li>
+                    <li class="breadcrumb-item active">Create Pincode</li>
                 </ol>
             </nav>
         </div>
