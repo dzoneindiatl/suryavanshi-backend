@@ -87,7 +87,7 @@
 
                                             <div class="col-xl-6">
                                                 <label for="short_description" class="form-label">Short Description</label>
-                                                <textarea class="form-control @error('short_description') is-invalid @enderror" name="short_description" id="short_description" cols="30" rows="5">{!! isset($blog->short_description) ? $blog->short_description: old('short_description') !!}</textarea>
+                                                <textarea class="form-control ck_content @error('short_description') is-invalid @enderror" name="short_description" id="short_description" cols="30" rows="5">{!! isset($blog->short_description) ? $blog->short_description: old('short_description') !!}</textarea>
                                                 @if ($errors->has('short_description'))
                                                     <div class=" invalid-feedback">
                                                         {{ $errors->first('short_description') }}
@@ -97,7 +97,7 @@
 
                                             <div class="col-xl-6">
                                                 <label for="long_description" class="form-label">Long Description</label>
-                                                <textarea class="form-control @error('long_description') is-invalid @enderror" name="long_description" id="long_description" cols="30" rows="5">{!! isset($blog->long_description) ? $blog->long_description: old('long_description') !!}</textarea>
+                                                <textarea class="form-control ck_content @error('long_description') is-invalid @enderror" name="long_description" id="long_description" cols="30" rows="5">{!! isset($blog->long_description) ? $blog->long_description: old('long_description') !!}</textarea>
                                                 @if ($errors->has('long_description'))
                                                     <div class=" invalid-feedback">
                                                         {{ $errors->first('long_description') }}
@@ -124,35 +124,26 @@
 @endsection
 
 @push('scripts')
-<!-- Select2 Cdn -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('public/assets/plugin/tagify/tagify.min.js') }}"></script>
-
-<!-- Internal Select-2.js -->
 <script src="{{ asset('public/assets/js/select2.js') }}"></script>
 <script src="{{ asset('public/assets/libs/dropzone/dropzone-min.js') }}"></script>
-<script src="{{ asset('public/assets/js/custom/product.js') }}"></script>
 <script src="{{ asset('public/assets/plugin/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('public/assets/js/repeater.js')}}"></script>
 <script>
-    $(document).ready(function() {
-        
-    });
+    window.CKEDITOR_BASEPATH = "{{ asset('assets/js/ckeditor/') }}/";
 </script>
-
-
+<script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
 <script>
-    CKEDITOR.replace(<?php echo 'short_description'; ?>, {
-        filebrowserUploadUrl: '<?php echo URL()->to('base/uploder'); ?>',
-        enterMode: CKEDITOR.ENTER_BR
+document.querySelectorAll('textarea.ck_content').forEach(function (textarea) {
+    if (!textarea.id) return;
+        if (CKEDITOR.instances[textarea.id]) {
+            return;
+        }
+    CKEDITOR.replace(textarea.id, {
+        enterMode: CKEDITOR.ENTER_BR,
+        allowedContent: true
     });
-    CKEDITOR.config.allowedContent = true;
-
-    CKEDITOR.replace(<?php echo 'long_description'; ?>, {
-        filebrowserUploadUrl: '<?php echo URL()->to('base/uploder'); ?>',
-        enterMode: CKEDITOR.ENTER_BR
-    });
-    CKEDITOR.config.allowedContent = true;
+});
 </script>
-
 @endpush

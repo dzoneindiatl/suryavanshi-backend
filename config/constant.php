@@ -45,6 +45,10 @@ return [
 	'BANNER_IMAGE_ROOT_PATH'                       => $BASE_PATH . 'uploads/banners/',
 	'BANNER_IMAGE_URL'                       => $FRONT_WEBSITE_URL . 'uploads/banners/',
 
+	'BLOG_IMAGE_PATH'                       => $FRONT_WEBSITE_URL . 'uploads/blogs/',
+	'BLOG_IMAGE_ROOT_PATH'                       => $BASE_PATH . 'uploads/blogs/',
+	'BLOG_IMAGE_URL'                       => $FRONT_WEBSITE_URL . 'uploads/blogs/',
+
 	'BANNER_VIDEO_PATH'                       => $FRONT_WEBSITE_URL . 'uploads/banners-video/',
 	'BANNER_VIDEO_ROOT_PATH'                       => $BASE_PATH . 'uploads/banners-video/',
 	'BANNER_VIDEO_URL'                       => $FRONT_WEBSITE_URL . 'uploads/banners-video/',

@@ -4,7 +4,7 @@
 
     <td>{{ $result->title ?? "N/A" }}</td>
     <td>
-        <img src="{{ Config('constant.BANNER_IMAGE_URL').$result->media }}" alt="" height="80" width="100" />
+        <img src="{{ Config('constant.BLOG_IMAGE_URL').$result->media }}" alt="" height="80" width="100" />
     </td>
     <td>
         @if($result->is_active == 1)

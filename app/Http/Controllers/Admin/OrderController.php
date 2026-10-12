@@ -447,59 +447,59 @@ class OrderController extends Controller
             $orderstatushistory->save();
 
             if ($status == 'accepted') {  // confirmed
-                $shippingItems = [];
-                $total_discount = 0;
-                $order = Order::find($id);
-                foreach ($order->items as $item) {
-                    // Prepare shipping item details
-                    $shippingItem = [
-                        'name' => $item->product->name,
-                        'sku' => $item->product->sku,
-                        //'hsn' => $item->product->hsn,
-                        'units' => $item->qty,
-                        'selling_price' => $item->total,
-                        'discount' => $order->coupon_discount,
-                        'tax' => $item->gst
-                    ];
-                    $shippingItems[] = $shippingItem;
-                    $total_discount += $order->coupon_discount;
-                }
+                // $shippingItems = [];
+                // $total_discount = 0;
+                // $order = Order::find($id);
+                // foreach ($order->items as $item) {
+                //     // Prepare shipping item details
+                //     $shippingItem = [
+                //         'name' => $item->product->name,
+                //         'sku' => $item->product->sku,
+                //         //'hsn' => $item->product->hsn,
+                //         'units' => $item->qty,
+                //         'selling_price' => $item->total,
+                //         'discount' => $order->coupon_discount,
+                //         'tax' => $item->gst
+                //     ];
+                //     $shippingItems[] = $shippingItem;
+                //     $total_discount += $order->coupon_discount;
+                // }
 
                 // Fetch addresses
                 //if (isset($order['billing_address_id'])) { 
                   //  $billing_id = $order['billing_address_id'];
-                    $billAddress = UserAddress::getShippingAddressByUserID('billing', $order->user_id);
+                    // $billAddress = UserAddress::getShippingAddressByUserID('billing', $order->user_id);
                // }
                // if (isset($order['shipping_address_id'])) {
                  //   $shipping_id = $order['shipping_address_id'];
-                    $shipAddress = UserAddress::getShippingAddressByUserID('shipping', $order->user_id);
+                    // $shipAddress = UserAddress::getShippingAddressByUserID('shipping', $order->user_id);
                // }
                 // Create Shiprocket Order
-                $addresses = array_merge($billAddress, $shipAddress);
-                if ($order->payment_method == 'cod') {
-                    $payment_method = 'cod';
-                } else {
-                    $payment_method = 'Prepaid';
-                }
-                $shipDetails = [
-                    "order_id" => $id,
-                    "order_date" => date('Y-m-d H:i:s', strtotime($order->created_at)),
-                    "pickup_location" => "Primary",
-                    "shipping_is_billing" => false,
-                    "order_items" => $shippingItems,
-                    "payment_method" => $payment_method,
-                    "shipping_charges" => 0,
-                    "total_discount" => $total_discount,
-                    "sub_total" => $order->total,
-                    "length" => 0.5,
-                    "breadth" => 0.5,
-                    "height" => 0.5,
-                    "weight" => $order->total_weight
-                ];
-                $shippingDetails = array_merge($shipDetails, $addresses);
-                $token = Shiprocket::getToken();
+                // $addresses = array_merge($billAddress, $shipAddress);
+                // if ($order->payment_method == 'cod') {
+                //     $payment_method = 'cod';
+                // } else {
+                //     $payment_method = 'Prepaid';
+                // }
+                // $shipDetails = [
+                //     "order_id" => $id,
+                //     "order_date" => date('Y-m-d H:i:s', strtotime($order->created_at)),
+                //     "pickup_location" => "Primary",
+                //     "shipping_is_billing" => false,
+                //     "order_items" => $shippingItems,
+                //     "payment_method" => $payment_method,
+                //     "shipping_charges" => 0,
+                //     "total_discount" => $total_discount,
+                //     "sub_total" => $order->total,
+                //     "length" => 0.5,
+                //     "breadth" => 0.5,
+                //     "height" => 0.5,
+                //     "weight" => $order->total_weight
+                // ];
+                // $shippingDetails = array_merge($shipDetails, $addresses);
+                // $token = Shiprocket::getToken();
                 // dd($token); // This will dump the token for testing
-                $shiprocketResponse = Shiprocket::order($token)->create($shippingDetails);
+                // $shiprocketResponse = Shiprocket::order($token)->create($shippingDetails);
 
                 // Log::info('Shiprocket Response: ', $shiprocketResponse->toArray());
 
@@ -509,16 +509,16 @@ class OrderController extends Controller
                 //   die;
 
                 // Get order and shipment IDs
-                $shiprocket_order_id = !empty($shiprocketResponse['order_id']) ? $shiprocketResponse['order_id'] : '';
-                $shiprocket_shipment_id = !empty($shiprocketResponse['shipment_id']) ? $shiprocketResponse['shipment_id'] : '';
+                // $shiprocket_order_id = !empty($shiprocketResponse['order_id']) ? $shiprocketResponse['order_id'] : '';
+                // $shiprocket_shipment_id = !empty($shiprocketResponse['shipment_id']) ? $shiprocketResponse['shipment_id'] : '';
 
                 // Update order with Shiprocket IDs
-                if (!empty($shiprocket_shipment_id)) {
-                    Order::where('id', $id)->update([
-                        'shiprocket_order_id' => $shiprocket_order_id,
-                        'shiprocket_shipment_id' => $shiprocket_shipment_id
-                    ]);
-                }
+                // if (!empty($shiprocket_shipment_id)) {
+                //     Order::where('id', $id)->update([
+                //         'shiprocket_order_id' => $shiprocket_order_id,
+                //         'shiprocket_shipment_id' => $shiprocket_shipment_id
+                //     ]);
+                // }
                 $userData = User::where('id',$order->user_id)->first();
                 $orderitem = OrderItem::where('order_id',$order->id)->get();
                 info("order Item-----Controller---",[$orderitem]); 

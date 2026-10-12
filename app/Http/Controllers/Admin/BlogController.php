@@ -119,14 +119,14 @@ class BlogController extends Controller
                     $extension = $request->file('media')->getClientOriginalExtension();
                     $originalName = $request->file('media')->getClientOriginalName();
                     $fileName = time() . '.' . $extension;
-                    $folderName = "slider/blog/".strtoupper(date('M') . date('Y')) . "/";
-                    $folderPath = Config('constant.BANNER_IMAGE_ROOT_PATH') . $folderName;
+                    $folderName = strtoupper(date('M') . date('Y')) . "/";
+                    $folderPath = Config('constant.BLOG_IMAGE_ROOT_PATH') . $folderName;
                     if (!File::exists($folderPath)) {
                         File::makeDirectory($folderPath, $mode = 0777, true);
                     }
                     $img = Image::read($request->file('media'));
                     $img->save($folderPath.$fileName);
-                    $blog->media =$folderName . $fileName;
+                    $blog->media = $folderName . $fileName;
                 }
                 $blog->save();
 
